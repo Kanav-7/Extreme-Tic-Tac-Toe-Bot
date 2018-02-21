@@ -7,6 +7,7 @@ class Team19:
 		self.initdepth = 2
 		self.maxdepth = 300
 		self.sign = ' '
+		self.opposite_sign = ' '
 		# self.timeLmt = datetime.timedelta(seconds = 14)
 		self.timeLmt = 2
 		self.INT_MAX = 100000000000
@@ -20,6 +21,10 @@ class Team19:
 		#Find the list of valid cells allowed
 		self.startTime = time()
 		self.sign = flag
+		if(flag == 'x'):
+			self.opposite_sign = 'o'
+		else:
+			self.opposite_sign = 'x'	
 		ansMove = self.iterative_search(board,old_move,flag)
 		# print "dqwefrbtnhjhm"
 		print ansMove
@@ -45,7 +50,7 @@ class Team19:
 			output_move = random.choice(max_set)
 		return output_move
 						
-
+	#Source GFG
 	def minimax(self,board,move,depth,isMaximizingPlayer, alpha, beta):
 		if time() - self.startTime > self.timeLmt:
 			# print "hahaha"
@@ -79,8 +84,8 @@ class Team19:
 			# print moves
 			for new_move in moves:
 				# temp_board = copy.copy(board)
-				board.update(move, new_move,'x')
-				bestVal = min(v, self.minimax(board, new_move, depth - 1,True, alpha, beta))
+				board.update(move, new_move,self.opposite_sign)
+				bestVal = min(bestVal, self.minimax(board, new_move, depth - 1,True, alpha, beta))
 				# print "dfg"
 				board.board_status[new_move[0]][new_move[1]] = '-'
 				board.block_status[new_move[0]/4][new_move[1]/4] = '-'
@@ -89,31 +94,8 @@ class Team19:
 				beta = min(beta, bestVal)
 				if beta <= alpha:
 					break		
-			return v
-		
-
-		# if node is a leaf node :
-  #       return value of the node
-    
-  #   if isMaximizingPlayer :
-  #       bestVal = -INFINITY 
-  #       for each child node :
-  #           value = minimax(node, depth+1, false, alpha, beta)
-  #           bestVal = max( bestVal, value) 
-  #           alpha = max( alpha, bestVal)
-  #           if beta <= alpha:
-  #               break
-  #       return bestVal
-
-  #   else :
-  #       bestVal = +INFINITY 
-  #       for each child node :
-  #           value = minimax(node, depth+1, true, alpha, beta)
-  #           bestVal = min( bestVal, value) 
-  #           beta = min( beta, bestVal)
-  #           if beta <= alpha:
-  #               break
-  #       return bestVal	
+			return bestVal
+			
 
 
 
