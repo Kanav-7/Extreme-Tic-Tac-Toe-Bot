@@ -12,7 +12,7 @@ class Team19:
 		self.timeLmt = 1
 		self.INT_MAX = 100000000000
 		self.INT_MIN = -100000000000
-
+		self.factor = 7
 
 
 	def move(self, board, old_move, flag):
@@ -29,7 +29,6 @@ class Team19:
 		return ansMove
 
 	def iterative_search(self,board,old_move,flag):
-		output_move = (0,0)
 		for deep in range(self.initdepth,self.maxdepth):
 			valid_moves = board.find_valid_move_cells(old_move)
 			maxval = self.INT_MIN
@@ -119,9 +118,11 @@ class Team19:
 		block_dias_data = self.getBlockDias(board)
 		block_pos_data = self.getBlockPos(board)
 		block_cell_data = self.getCellAll(board)
-		print block_cell_data
-		return 10*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0])
+		# print block_cell_data
 
+		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 50*(block_cell_data[0] + block_cell_data[2] + block_cell_data[4])
+		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) + 50*(block_cell_data[1] + block_cell_data[3] + block_cell_data[5])
+		return attack - defence
 	def getBlockRows(self,board):
 		row_draw = 0
 		row_win = 0
@@ -141,10 +142,10 @@ class Team19:
 
 			if drawcount > 0:
 				row_draw+=1
-			elif mycount > 1 and oppcount == 0:
-				row_win+=1
-			elif oppcount > 1 and mycount == 0:
-				row_lose+=1	
+			elif mycount > 0 and oppcount == 0:
+				row_win+=self.factor**mycount
+			elif oppcount > 0 and mycount == 0:
+				row_lose+=self.factor**oppcount
 			elif oppcount == 0 and mycount == 0 and drawcount == 0:
 				row_empty+=1
 			elif oppcount > 0 and mycount > 0:
@@ -172,10 +173,10 @@ class Team19:
 
 			if drawcount > 0:
 				col_draw+=1
-			elif mycount > 1 and oppcount == 0:
-				col_win+=1
-			elif oppcount > 1 and mycount == 0:
-				col_lose+=1	
+			elif mycount > 0 and oppcount == 0:
+				col_win+=self.factor**mycount
+			elif oppcount > 0 and mycount == 0:
+				col_lose+=self.factor**oppcount
 			elif oppcount == 0 and mycount == 0 and drawcount == 0:
 				col_empty+=1
 			elif oppcount > 0 and mycount > 0:
@@ -223,10 +224,10 @@ class Team19:
 
 			if drawcount > 0:
 				dia_draw+=1
-			elif mycount > 1 and oppcount == 0:
-				dia_win+=1
-			elif oppcount > 1 and mycount == 0:
-				dia_lose+=1	
+			elif mycount > 0 and oppcount == 0:
+				dia_win+=self.factor**mycount
+			elif oppcount > 0 and mycount == 0:
+				dia_lose+=self.factor**oppcount
 			elif oppcount == 0 and mycount == 0 and drawcount == 0:
 				dia_empty+=1
 			elif oppcount > 0 and mycount > 0:
@@ -326,10 +327,10 @@ class Team19:
 								drawcolcount+=1								
 						if drawrowcount > 0:
 							row_draw+=1
-						elif myrowcount > 1 and opprowcount == 0:
-							row_win+=1
-						elif opprowcount > 1 and myrowcount == 0:
-							row_lose+=1	
+						elif myrowcount > 0 and opprowcount == 0:
+							row_win+=self.factor**myrowcount
+						elif opprowcount > 0 and myrowcount == 0:
+							row_lose+=self.factor**opprowcount	
 						elif opprowcount == 0 and myrowcount == 0 and drawrowcount == 0:
 							row_empty+=1
 						elif opprowcount > 0 and myrowcount > 0:
@@ -337,10 +338,10 @@ class Team19:
 
 						if drawcolcount > 0:
 							col_draw+=1
-						elif mycolcount > 1 and oppcolcount == 0:
-							col_win+=1
+						elif mycolcount > 0 and oppcolcount == 0:
+							col_win+=self.factor**mycolcount
 						elif oppcolcount > 1 and mycolcount == 0:
-							col_lose+=1	
+							col_lose+=self.factor**oppcolcount
 						elif oppcolcount == 0 and mycolcount == 0 and drawcolcount == 0:
 							col_empty+=1
 						elif oppcolcount > 0 and mycolcount > 0:
@@ -377,10 +378,10 @@ class Team19:
 
 						if drawdiacount > 0:
 							dia_draw+=1
-						elif mydiacount > 1 and oppdiacount == 0:
-							dia_win+=1
-						elif oppdiacount > 1 and mydiacount == 0:
-							dia_lose+=1	
+						elif mydiacount > 0 and oppdiacount == 0:
+							dia_win+=self.factor**mydiacount
+						elif oppdiacount > 0 and mydiacount == 0:
+							dia_lose+=self.factor**oppdiacount
 						elif oppdiacount == 0 and mydiacount == 0 and drawdiacount == 0:
 							dia_empty+=1
 						elif oppdiacount > 0 and mydiacount > 0:
