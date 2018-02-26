@@ -28,6 +28,20 @@ class Team19:
 			self.opposite_sign = 'o'
 		else:
 			self.opposite_sign = 'x'	
+
+		mywins = self.boardWins(board)[0]
+		oppwins = self.boardWins(board)[1]
+
+		if mywins < 2:
+			self.bonus[0] = 2 - mywins
+		else:		
+			self.bonus[0] = 0
+
+		if oppwins < 2:
+			self.bonus[1] = 2 - oppwins
+		else:		
+			self.bonus[1] = 0
+
 		ansMove = self.iterative_search(board,old_move,flag)
 		return ansMove
 
@@ -54,7 +68,7 @@ class Team19:
 			if time() - self.startTime > self.timeLmt:
 				break
 			output_move = random.choice(max_set)
-			print output_move
+			# print output_move
 		# print output_move
 		return output_move
 						
@@ -143,8 +157,12 @@ class Team19:
 		# print "5"
 		# print block_cell_data
 
-		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 35*(block_cell_data[0] + block_cell_data[3] + block_cell_data[6])
-		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) + 35*(block_cell_data[1] + block_cell_data[4] + block_cell_data[7])
+		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) 
+		attack+= 35*(block_cell_data[0] + block_cell_data[3] + block_cell_data[6])
+		attack+= 750*block_pos_data[2] + 500*block_pos_data[4] + 200*block_pos_data[0]
+		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) 
+		defence+= 35*(block_cell_data[1] + block_cell_data[4] + block_cell_data[7])
+		defence+= 750*block_pos_data[3] + 500*block_pos_data[5] + 200*block_pos_data[1]
 		return attack - defence
 	def getBlockRows(self,board):
 		row_draw = 0

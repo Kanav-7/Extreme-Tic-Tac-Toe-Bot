@@ -4,6 +4,8 @@ import signal
 import time
 import copy
 import team19
+import team19a
+import teamX
 import xyz
 import team57
 TIME = 16
