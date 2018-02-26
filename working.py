@@ -13,11 +13,8 @@ class Team19:
 		self.INT_MAX = 100000000000
 		self.INT_MIN = -100000000000
 		self.factor = 7
-		self.bonus = [2,2]
-		self.board_wins = 0
-		self.old_board_wins = 0
-		self.board_opp_wins = 0
-		self.old_opp_wins = 0
+
+
 	def move(self, board, old_move, flag):
 
 		#You have to implement the move function with the same signature as this
@@ -73,13 +70,7 @@ class Team19:
 			moves = board.find_valid_move_cells(move)
 			for new_move in moves:
 				board.update(move, new_move, self.sign)
-				self.board_wins = self.boardWins(board)[0]
-				if self.board_wins - self.old_board_wins > 0 and self.bonus[0] > 0:
-					self.old_board_wins = self.board_wins
-					self.bonus[0]-=1
-					bestVal = max(bestVal, self.minimax(board, new_move, depth - 1, True,alpha, beta))
-				else:	
-					bestVal = max(bestVal, self.minimax(board, new_move, depth - 1, False,alpha, beta))
+				bestVal = max(bestVal, self.minimax(board, new_move, depth - 1, False,alpha, beta))
 				board.board_status[new_move[0]][new_move[1]] = '-'
 				board.block_status[new_move[0]/4][new_move[1]/4] = '-'
 				if time() - self.startTime > self.timeLmt:
@@ -97,13 +88,7 @@ class Team19:
 			for new_move in moves:
 				# temp_board = copy.copy(board)
 				board.update(move, new_move,self.opposite_sign)
-				self.board_opp_wins = self.boardWins(board)[1]
-				if self.board_opp_wins - self.old_opp_wins > 0 and self.bonus[1] > 0:
-					self.old_opp_wins = self.board_opp_wins
-					self.bonus[1]-=1
-					bestVal = min(bestVal, self.minimax(board, new_move, depth - 1, False,alpha, beta))
-				else:	
-					bestVal = min(bestVal, self.minimax(board, new_move, depth - 1, True,alpha, beta))
+				bestVal = min(bestVal, self.minimax(board, new_move, depth - 1,True, alpha, beta))
 				board.board_status[new_move[0]][new_move[1]] = '-'
 				board.block_status[new_move[0]/4][new_move[1]/4] = '-'
 				if time() - self.startTime > self.timeLmt:
@@ -143,8 +128,8 @@ class Team19:
 		# print "5"
 		# print block_cell_data
 
-		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 35*(block_cell_data[0] + block_cell_data[3] + block_cell_data[6])
-		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) + 35*(block_cell_data[1] + block_cell_data[4] + block_cell_data[7])
+		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 50*(block_cell_data[0] + block_cell_data[2] + block_cell_data[4])
+		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) + 50*(block_cell_data[1] + block_cell_data[3] + block_cell_data[5])
 		return attack - defence
 	def getBlockRows(self,board):
 		row_draw = 0
@@ -412,15 +397,4 @@ class Team19:
 		return [row_win,row_lose,row_draw,col_win,col_lose,col_draw,dia_win,dia_lose,dia_draw]
 
 												
-	def boardWins(self,board):
-		mycount = 0
-		oppcount = 0
-		for i in range(4):
-			for j in range(4):
-				if board.block_status[i][j] == self.sign:
-					mycount+=1
-				if board.block_status[i][j] == self.opposite_sign:
-					oppcount+=1					
-
-		return [mycount,oppcount]			
 

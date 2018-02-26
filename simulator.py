@@ -4,7 +4,8 @@ import signal
 import time
 import copy
 import team19
-
+import xyz
+import team57
 TIME = 16
 MAX_PTS = 68
 
@@ -362,6 +363,15 @@ if __name__ == '__main__':
 	elif option == '3':
 		obj1 = Manual_Player()
 		obj2 = Manual_Player()
+
+	elif option == '4':
+		obj2 = team19.Team19()
+		obj1 = xyz.MyPlayer()
+
+	elif option == '5':
+		obj1 = team19.Team19()
+		obj2 = xyz.MyPlayer()		
+
 	else:
 		print 'Invalid option'
 		sys.exit(1)

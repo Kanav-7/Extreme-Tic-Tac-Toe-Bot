@@ -143,8 +143,8 @@ class Team19:
 		# print "5"
 		# print block_cell_data
 
-		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 35*(block_cell_data[0] + block_cell_data[3] + block_cell_data[6])
-		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) + 35*(block_cell_data[1] + block_cell_data[4] + block_cell_data[7])
+		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 50*(block_cell_data[0] + block_cell_data[2] + block_cell_data[4])
+		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) + 50*(block_cell_data[1] + block_cell_data[3] + block_cell_data[5])
 		return attack - defence
 	def getBlockRows(self,board):
 		row_draw = 0
