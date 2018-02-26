@@ -29,6 +29,7 @@ class Team19:
 		return ansMove
 
 	def iterative_search(self,board,old_move,flag):
+		output_move = random.choice(board.find_valid_move_cells(old_move))
 		for deep in range(self.initdepth,self.maxdepth):
 			valid_moves = board.find_valid_move_cells(old_move)
 			maxval = self.INT_MIN
@@ -50,6 +51,7 @@ class Team19:
 			if time() - self.startTime > self.timeLmt:
 				break
 			output_move = random.choice(max_set)
+			print output_move
 		# print output_move
 		return output_move
 						
@@ -97,6 +99,7 @@ class Team19:
 			return bestVal
 
 	def heuristic(self,	board):
+		# print "1"
 		new_state = board.find_terminal_state()
 
 		if new_state[1] == 'WON':
@@ -114,10 +117,15 @@ class Team19:
 		# 	total += self.feature_weights[i] * features[i]
 		# board.print_board()
 		block_rows_data = self.getBlockRows(board)
+		# print "1"
 		block_cols_data = self.getBlockCols(board)
+		# print "2"
 		block_dias_data = self.getBlockDias(board)
+		# print "3"
 		block_pos_data = self.getBlockPos(board)
+		# print "4"
 		block_cell_data = self.getCellAll(board)
+		# print "5"
 		# print block_cell_data
 
 		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) + 50*(block_cell_data[0] + block_cell_data[2] + block_cell_data[4])
