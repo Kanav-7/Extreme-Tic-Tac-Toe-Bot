@@ -5,7 +5,10 @@ import time
 import copy
 import team19
 import team19a
+import team19d
+import team7
 import teamX
+import TeamX2
 import xyz
 import team57
 TIME = 16
@@ -368,11 +371,11 @@ if __name__ == '__main__':
 
 	elif option == '4':
 		obj2 = team19.Team19()
-		obj1 = xyz.MyPlayer()
+		obj1 = TeamX2.TeamX2()
 
 	elif option == '5':
 		obj1 = team19.Team19()
-		obj2 = xyz.MyPlayer()		
+		obj2 = TeamX2.TeamX2()		
 
 	else:
 		print 'Invalid option'

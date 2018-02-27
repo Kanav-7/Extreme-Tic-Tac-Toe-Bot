@@ -8,7 +8,6 @@ class Team19:
 		self.maxdepth = 300
 		self.sign = ' '
 		self.opposite_sign = ' '
-		# self.timeLmt = datetime.timedelta(seconds = 14)
 		self.timeLmt = 1
 		self.INT_MAX = 10000000000
 		self.INT_MIN = -10000000000
@@ -34,7 +33,7 @@ class Team19:
 
 		if mywins < 2:
 			self.bonus[0] = 2 - mywins
-		else:		
+		else:
 			self.bonus[0] = 0
 
 		if oppwins < 2:
@@ -132,6 +131,7 @@ class Team19:
 		new_state = board.find_terminal_state()
 
 		if new_state[1] == 'WON':
+			print "HHAHA"
 			if new_state[0] == self.sign:
 				score = self.INT_MAX + 10**depth
 			else:
@@ -158,10 +158,10 @@ class Team19:
 		# print block_cell_data
 
 		attack = 1000*(block_rows_data[0] + block_cols_data[0] + block_dias_data[0]) 
-		attack+= 35*(block_cell_data[0] + block_cell_data[3] + block_cell_data[6])
+		attack+= 10*(block_cell_data[0] + block_cell_data[3] + block_cell_data[6])
 		attack+= 750*block_pos_data[2] + 500*block_pos_data[4] + 200*block_pos_data[0]
 		defence = 1000*(block_rows_data[1] + block_cols_data[1] + block_dias_data[1]) 
-		defence+= 35*(block_cell_data[1] + block_cell_data[4] + block_cell_data[7])
+		defence+= 10*(block_cell_data[1] + block_cell_data[4] + block_cell_data[7])
 		defence+= 750*block_pos_data[3] + 500*block_pos_data[5] + 200*block_pos_data[1]
 		return attack - defence
 	def getBlockRows(self,board):
@@ -278,7 +278,7 @@ class Team19:
 
 	def getBlockPos(self,board):
 		center_win = 0
-		center_lose = 0	
+		center_lose = 0
 		corner_win = 0
 		corner_lose = 0
 		edge_win = 0

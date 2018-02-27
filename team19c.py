@@ -10,8 +10,8 @@ class Team19:
 		self.opposite_sign = ' '
 		# self.timeLmt = datetime.timedelta(seconds = 14)
 		self.timeLmt = 1
-		self.INT_MAX = 10000000000
-		self.INT_MIN = -10000000000
+		self.INT_MAX = 100000000000
+		self.INT_MIN = -100000000000
 		self.factor = 7
 		self.bonus = [2,2]
 		self.board_wins = 0
@@ -49,11 +49,11 @@ class Team19:
 		output_move = random.choice(board.find_valid_move_cells(old_move))
 		for deep in range(self.initdepth,self.maxdepth):
 			valid_moves = board.find_valid_move_cells(old_move)
-			maxval = 10*self.INT_MIN
+			maxval = self.INT_MIN
 			max_set = valid_moves
 			for move in valid_moves:
 				board.update(old_move, move, self.sign)
-				tempval = self.minimax(board, move, deep,  False, 10*self.INT_MIN, 10*self.INT_MAX)
+				tempval = self.minimax(board, move, deep,  False, self.INT_MIN, self.INT_MAX)
 				board.board_status[move[0]][move[1]] = '-'
 				board.block_status[move[0]/4][move[1]/4] = '-'
 				if time() - self.startTime > self.timeLmt:
@@ -75,14 +75,14 @@ class Team19:
 	#Source GFG
 	def minimax(self,board,move,depth,isMaximizingPlayer, alpha, beta):
 		if time() - self.startTime > self.timeLmt:
-			return 10*self.INT_MIN - 1
+			return self.INT_MIN - 1
 
 		if depth == 0 or board.find_terminal_state() != ('CONTINUE', '-'):
 			return self.heuristic(board,depth)
 			# return 10
 
 		if isMaximizingPlayer:
-			bestVal = 10*self.INT_MIN
+			bestVal = self.INT_MIN
 			# print v
 			moves = board.find_valid_move_cells(move)
 			for new_move in moves:
@@ -97,14 +97,14 @@ class Team19:
 				board.board_status[new_move[0]][new_move[1]] = '-'
 				board.block_status[new_move[0]/4][new_move[1]/4] = '-'
 				if time() - self.startTime > self.timeLmt:
-					return 10*self.INT_MIN - 1
+					return self.INT_MIN - 1
 				alpha = max(alpha, bestVal)
 				if beta <= alpha:
 					break
 			return bestVal
 
 		else:
-			bestVal = 10*self.INT_MAX
+			bestVal = self.INT_MAX
 			# print v
 			moves = board.find_valid_move_cells(move)
 			# print moves
@@ -121,7 +121,7 @@ class Team19:
 				board.board_status[new_move[0]][new_move[1]] = '-'
 				board.block_status[new_move[0]/4][new_move[1]/4] = '-'
 				if time() - self.startTime > self.timeLmt:
-					return 10*self.INT_MIN - 1
+					return self.INT_MIN - 1
 				beta = min(beta, bestVal)
 				if beta <= alpha:
 					break		
@@ -133,9 +133,9 @@ class Team19:
 
 		if new_state[1] == 'WON':
 			if new_state[0] == self.sign:
-				score = self.INT_MAX + 10**depth
+				score = self.INT_MAX 
 			else:
-				score = self.INT_MIN - 10**depth
+				score = self.INT_MIN 
 			return score	
 
 		# features = self.getFeatures(board,old_move, flag)
@@ -278,7 +278,7 @@ class Team19:
 
 	def getBlockPos(self,board):
 		center_win = 0
-		center_lose = 0	
+		center_lose = 0
 		corner_win = 0
 		corner_lose = 0
 		edge_win = 0
