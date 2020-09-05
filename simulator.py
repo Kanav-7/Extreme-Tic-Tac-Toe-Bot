@@ -5,12 +5,14 @@ import time
 import copy
 import team19
 import team19a
-import team19d
+import team19pro
 import team7
 import teamX
 import TeamX2
 import xyz
 import team57
+import bot
+import team57_ready1
 TIME = 16
 MAX_PTS = 68
 
@@ -371,11 +373,11 @@ if __name__ == '__main__':
 
 	elif option == '4':
 		obj2 = team19.Team19()
-		obj1 = TeamX2.TeamX2()
+		obj1 = bot.Bot()
 
 	elif option == '5':
 		obj1 = team19.Team19()
-		obj2 = TeamX2.TeamX2()		
+		obj2 = team57.Player57()		
 
 	else:
 		print 'Invalid option'

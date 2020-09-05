@@ -9,15 +9,16 @@ class Team19:
 		self.sign = ' '
 		self.opposite_sign = ' '
 		# self.timeLmt = datetime.timedelta(seconds = 14)
-		self.timeLmt = 1
+		self.timeLmt = 15
 		self.INT_MAX = 10000000000
 		self.INT_MIN = -10000000000
 		self.factor = 7
-		self.bonus = [2,2]
+		self.bonus = [1,1]
 		self.board_wins = 0
 		self.old_board_wins = 0
 		self.board_opp_wins = 0
 		self.old_opp_wins = 0
+		
 	def move(self, board, old_move, flag):
 
 		#You have to implement the move function with the same signature as this
@@ -32,13 +33,13 @@ class Team19:
 		mywins = self.boardWins(board)[0]
 		oppwins = self.boardWins(board)[1]
 
-		if mywins < 2:
-			self.bonus[0] = 2 - mywins
+		if mywins == 0:
+			self.bonus[0] = 1
 		else:		
 			self.bonus[0] = 0
 
-		if oppwins < 2:
-			self.bonus[1] = 2 - oppwins
+		if oppwins == 0:
+			self.bonus[1] = 1
 		else:		
 			self.bonus[1] = 0
 
